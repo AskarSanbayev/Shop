@@ -1,4 +1,4 @@
-package com.web.project.command.commandimpl;
+package com.web.project.command;
 
 public class PageContainer {
 

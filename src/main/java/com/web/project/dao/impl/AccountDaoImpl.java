@@ -13,6 +13,7 @@ public class AccountDaoImpl implements AccountDao {
 
     private static final String INSERT_ACCOUNT = "INSERT INTO accounts (first_name,last_name,email,password,gender,birthday ) VALUES (?,?,?,?,?,?);";
     private static final String SELECT_ACCOUNT = "Select email From accounts where email = ?";
+    private static final String SELECT_LOGIN_ACCOUNT = "Select email,password From accounts where email = ? and password = ?";
     private ConnectionPool connectionPool = ConnectionPool.INSTANCE;
     private Connection connection;
 
@@ -59,6 +60,26 @@ public class AccountDaoImpl implements AccountDao {
         }
 
 
+    }
+
+    @Override
+    public boolean logIn(String email, String password) {
+        connection = connectionPool.takeConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LOGIN_ACCOUNT)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                accountExists = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
+        }
+        return accountExists;
     }
 
     public void setAccountExists(boolean accountExists) {

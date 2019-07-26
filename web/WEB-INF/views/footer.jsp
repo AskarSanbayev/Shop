@@ -4,7 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="WEB-INF/css/footer.css"/>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -13,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="container fixed-bottom">
 <footer class="page-footer font-small special-color-dark pt-4">
     <div class="row">
         <div class="col-sm-3"></div>

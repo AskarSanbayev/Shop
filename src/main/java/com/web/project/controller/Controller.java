@@ -1,7 +1,7 @@
 package com.web.project.controller;
 
 import com.web.project.command.Command;
-import com.web.project.command.commandimpl.CommandManager;
+import com.web.project.command.CommandManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,6 @@ import java.io.IOException;
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
 
-    private static final long serialVersionUID = 102831973239L;
     private static final String COMMAND = "command";
 
     @Override

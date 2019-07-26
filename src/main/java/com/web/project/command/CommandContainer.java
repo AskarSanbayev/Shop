@@ -7,5 +7,8 @@ public enum CommandContainer {
     REGISTER,
     LOGIN,
     RESULT_REGISTER,
+    RU,
+    EN,
+    CHANGE_LOCALE,
 
 }

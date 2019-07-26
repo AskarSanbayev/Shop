@@ -9,4 +9,6 @@ public interface AccountDao {
     boolean find(String email) throws SQLException;
 
     void add(Account account);
+
+    boolean logIn(String email, String password);
 }

@@ -37,6 +37,20 @@
                     <a class="nav-link" href="controller?command=to_register">${register}</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light"
+                       href="controller?command=change_locale&localization=en">
+                        ${en}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light"
+                       href="controller?command=change_locale&localization=ru">
+                        ${ru}
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>

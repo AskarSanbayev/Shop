@@ -1,7 +1,6 @@
-package com.web.project.command.commandimpl;
+package com.web.project.command;
 
-import com.web.project.command.Command;
-import com.web.project.command.CommandContainer;
+import com.web.project.command.commandimpl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +15,10 @@ public class CommandManager {
         commands.put(CommandContainer.TO_REGISTER, new RegisterPage());
         commands.put(CommandContainer.TO_LOGIN, new LoginPage());
         commands.put(CommandContainer.REGISTER, new RegisterUserCommand());
+        commands.put(CommandContainer.RU, new ChangeLocaleCommand());
+        commands.put(CommandContainer.EN, new ChangeLocaleCommand());
+        commands.put(CommandContainer.CHANGE_LOCALE, new ChangeLocaleCommand());
+        commands.put(CommandContainer.LOGIN, new SignUserCommand());
     }
 
 

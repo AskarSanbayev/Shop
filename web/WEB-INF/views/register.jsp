@@ -1,44 +1,57 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
+    <%@ include file="header.jsp" %>
     <title>SignUp</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <fmt:setLocale value="${sessionScope.localization}"/>
+    <fmt:setBundle basename="locale/localization"/>
+    <fmt:message key="local.signUp" var="signUp"/>
+    <fmt:message key="local.name" var="firstName"/>
+    <fmt:message key="local.lastName" var="lastName"/>
+    <fmt:message key="local.password" var="password"/>
+    <fmt:message key="local.email" var="email"/>
+    <fmt:message key="local.birthDate" var="birthDate"/>
+    <fmt:message key="local.gender" var="gender"/>
+    <fmt:message key="local.genderM" var="M"/>
+    <fmt:message key="local.genderF" var="F"/>
+    <fmt:message key="local.submit" var="create"/>
+    <fmt:message key="local.toHome" var="homePage"/>
 </head>
 <body>
-<%@ include file="header.jsp" %>
 <div class="container" id="wrap">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="register" action="controller" method="POST" accept-charset="utf-8" class="form" role="form">
+            <form id="register" action="controller" method="POST" accept-charset="utf-8" class="form"
+                  role="form">
                 <input type="hidden" name="command" value="register"/>
-                <legend>Sign Up</legend>
+                <legend>${signUp}</legend>
                 <div class="row">
                     <div class="col-xs-6 col-md-6 mb-1" id="id_div">
-                        <input type="text" name="firstname" pattern="^[a-zA-Z_\-]+$"
+                        <input type="text" name="firstName" pattern="^[a-zA-Z_\-]+$"
                                title="Please enter only alphabetic characters." value=""
                                class="form-control input-lg"
-                               placeholder="First Name" required/>
+                               placeholder="${firstName}" required/>
                     </div>
                     <div class="col-xs-6 col-md-6 mb-1" id="surname_div">
-                        <input type="text" name="lastname" pattern="^[a-zA-Z_\-]+$"
+                        <input type="text" name="lastName" pattern="^[a-zA-Z_\-]+$"
                                title="Please enter only alphabetic characters."
                                value="" class="form-control input-lg"
-                               placeholder="Last Name" required/>
+                               placeholder="${lastName}" required/>
                     </div>
                 </div>
                 <div id="email_div">
                     <input id="email" type="text" name="email" value=""
                            pattern="^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
                            title="Please enter valid email form."
-                           class="form-control input-lg mb-1" placeholder="Your Email"
+                           class="form-control input-lg mb-1" placeholder="${email}"
                            required/>
                     <div id="email_error"></div>
                 </div>
                 <input type="password" name="password" value="" class="form-control input-lg mb-1"
-                       placeholder="Password" required/>
-                <label>Birth Date</label>
+                       placeholder="${password}" required/>
+                <label>${birthDate}</label>
                 <div class="row">
                     <div class="col-xs-4 col-md-4 mb-1">
                         <select name="month" class="form-control input-lg">
@@ -172,24 +185,24 @@
                             <option value="2013">2013</option>
                         </select></div>
                 </div>
-                <label>Gender : </label> <label class="radio-inline">
-                <input type="radio" name="gender" value="M" id=male required/> Male
+                <label>${gender} : </label> <label class="radio-inline">
+                <input type="radio" name="gender" value="M" id=male required/> ${M}
             </label>
                 <label class="radio-inline">
-                    <input type="radio" name="gender" value="F" id=female required/> Female
+                    <input type="radio" name="gender" value="F" id=female required/> ${F}
                 </label>
                 <br/>
                 <button id="submitbutton" class="submit btn btn-lg btn-primary btn-block signup-btn" type="submit">
-                    Create my account
+                    ${create}
                 </button>
             </form>
             <a href="/" class="btn btn-lg btn-primary btn-block signup-btn">
-                Back to main
+                ${homePage}
             </a>
         </div>
     </div>
 </div>
-
+<%@ include file="footer.jsp" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
