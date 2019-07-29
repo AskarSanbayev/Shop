@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -17,8 +19,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5">
-            <form id="form-signin">
-                <input type="hidden" name="command" value="login" />
+            <form id="form-signin" action="controller">
+                <input type="hidden" name="command" value="login"/>
                 <div id="wrapper">
                     <h2 class="form-signin-heading">${signIn}</h2>
                     <label for="inputEmail" class="sr-only">${email}</label>
@@ -35,7 +37,7 @@
                         </label>
                     </div>
                     <div id="error_message"></div>
-                    <button id="submit_button" class="btn btn-lg btn-primary btn-block" type="submit">${signIn}</button>
+                    <button id="submit_button" class="btn btn-lg btn-primary btn-block">${signIn}</button>
                 </div>
             </form>
             <a href="/" class="btn btn-lg btn-primary btn-block signup-btn">

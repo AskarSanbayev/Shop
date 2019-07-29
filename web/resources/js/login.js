@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("body").on("click", "#submit_button", function (e) {
+    $("body").on("blur", "#inputPassword", function (e) {
         $('#error_message').hide();
         if ($("#inputEmail").val() && $("#inputPassword").val()) {
             $.ajax({
@@ -22,10 +22,10 @@ $(document).ready(function () {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    $('#error_message').show();
-                    $("#error_message").html(textStatus + " " + errorThrown);
+                    $('#email_error').show();
+                    $("#email_error").html(textStatus + " " + errorThrown);
                 }
-            })
+            });
         }
     });
 });

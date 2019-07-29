@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <%@ include file="header.jsp" %>
@@ -29,13 +31,13 @@
                 <legend>${signUp}</legend>
                 <div class="row">
                     <div class="col-xs-6 col-md-6 mb-1" id="id_div">
-                        <input type="text" name="firstName" pattern="^[a-zA-Z_\-]+$"
+                        <input type="text" name="firstname" pattern="^[a-zA-Z_\-]+$"
                                title="Please enter only alphabetic characters." value=""
                                class="form-control input-lg"
                                placeholder="${firstName}" required/>
                     </div>
                     <div class="col-xs-6 col-md-6 mb-1" id="surname_div">
-                        <input type="text" name="lastName" pattern="^[a-zA-Z_\-]+$"
+                        <input type="text" name="lastname" pattern="^[a-zA-Z_\-]+$"
                                title="Please enter only alphabetic characters."
                                value="" class="form-control input-lg"
                                placeholder="${lastName}" required/>

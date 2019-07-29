@@ -11,7 +11,7 @@
     <tag>
         <name>CopyRight</name>
         <tag-class>
-            com.web.project.controller.tag.CopyRightTag
+            com.askar.webproject.controller.tag.CopyRightTag
         </tag-class>
         <body-content>empty</body-content>
     </tag>
