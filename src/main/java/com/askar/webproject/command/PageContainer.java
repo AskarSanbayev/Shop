@@ -12,4 +12,5 @@ public class PageContainer {
     public static final String ERROR_PAGE = "WEB-INF/views/error.jsp";
     public static final String USER_MENU_PAGE = "WEB-INF/views/usermenu.jsp";
     public static final String CART_PAGE = "WEB-INF/views/cart.jsp";
+    public static final String ORDER_HISTORY_PAGE = "WEB-INF/views/orderhistory.jsp";
 }

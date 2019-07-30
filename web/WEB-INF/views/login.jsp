@@ -37,7 +37,7 @@
                         </label>
                     </div>
                     <div id="error_message"></div>
-                    <button id="submit_button" class="btn btn-lg btn-primary btn-block">${signIn}</button>
+                    <button id="submitter" class="btn btn-lg btn-primary btn-block" type="submit">${signIn}</button>
                 </div>
             </form>
             <a href="/" class="btn btn-lg btn-primary btn-block signup-btn">

@@ -1,4 +1,4 @@
-package com.askar.webproject.controller;
+package com.askar.webproject.controller.ajax;
 
 import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Account;

@@ -16,8 +16,9 @@ public class CommandManager {
         EN,
         CHANGE_LOCALE,
         TO_CART,
-        LOG_OUT,
-        USER_MENU
+        LOGOUT,
+        USER_MENU,
+        TO_ORDER_HISTORY
     }
 
     private static CommandManager instance = new CommandManager();
@@ -34,8 +35,10 @@ public class CommandManager {
         commands.put(CommandContainer.LOGIN, new SignUserCommand());
         commands.put(CommandContainer.EMPTY_COMMAND, new EmptyCommand());
         commands.put(CommandContainer.TO_CART, new CartPageCommand());
-        commands.put(CommandContainer.LOG_OUT, new LogOutCommand());
-        commands.put(CommandContainer.USER_MENU, new UserMenuCommand());
+        commands.put(CommandContainer.LOGOUT, new LogOutCommand());
+        commands.put(CommandContainer.USER_MENU, new ToUserMenuCommand());
+        commands.put(CommandContainer.USER_MENU, new ToUserMenuCommand());
+
     }
 
 

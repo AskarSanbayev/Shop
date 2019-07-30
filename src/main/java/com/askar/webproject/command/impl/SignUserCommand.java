@@ -4,11 +4,14 @@ import com.askar.webproject.command.Command;
 import com.askar.webproject.command.PageContainer;
 import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Account;
+import com.askar.webproject.model.entity.Product;
+import com.askar.webproject.service.ProductService;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class SignUserCommand implements Command {
     private static final String EMAIL = "email";
@@ -19,15 +22,17 @@ public class SignUserCommand implements Command {
 
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
+        ProductService productService = factory.getProductService();
         HttpSession session = request.getSession(true);
 
         String login = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
         String page = null;
         Account account = null;
-
+        List<Product> productList = null;
         try {
             account = userService.findAccount(login, password);
+            productList = productService.findAll();
             request.setAttribute("user", account);
             session.setAttribute("user", account);
             session.setAttribute("name", account.getFirstName());
@@ -37,6 +42,7 @@ public class SignUserCommand implements Command {
             session.setAttribute("password", account.getPassword());
             session.setAttribute("gender", account.getGender());
             session.setAttribute("birthdate", account.getDate());
+            session.setAttribute("productlist", productList);
             page = PageContainer.USER_MENU_PAGE;
         } catch (ServiceException e) {
             request.setAttribute("error", e);

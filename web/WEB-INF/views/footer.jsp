@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="customTags" prefix="ctg"%>
 <html>
 <head>
     <!-- Font Awesome -->
@@ -12,8 +13,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container fixed-bottom">
-<footer class="page-footer font-small special-color-dark pt-4">
+<div class="container mt-10 fixed-bottom">
+<footer class="page-footer font-small special-color-dark pt-4 mt-20">
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">

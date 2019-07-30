@@ -13,12 +13,14 @@ $(document).ready(function () {
                 cache: false,
                 success: function (msg) {
                     if (msg === "<span style='color:red;'>Login or password is wrong</span>") {
+                        $('#submitter').attr("disabled", true);
                         $('#error_message').show();
                         $("#error_message").html(msg);
-                        $("#form-signin").removeAttr("action");
+
                     } else {
-                        $('#error_message').hide();
-                        $("#form-signin").attr("action", "controller?command=signUser");
+                        $('#submitter').removeAttr("disabled");
+                        $('#submitter').attr("disabled", false)
+                        $('#error_message').hide()
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
