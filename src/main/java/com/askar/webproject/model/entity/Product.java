@@ -57,4 +57,14 @@ public class Product extends Entity {
     public int hashCode() {
         return Objects.hash(code, name, price);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
 }

@@ -23,7 +23,7 @@ public class SignUserCommand implements Command {
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         ProductService productService = factory.getProductService();
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
 
         String login = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
@@ -35,6 +35,7 @@ public class SignUserCommand implements Command {
             productList = productService.findAll();
             request.setAttribute("user", account);
             session.setAttribute("user", account);
+            session.setAttribute("accountId", account.getAccountId());
             session.setAttribute("name", account.getFirstName());
             session.setAttribute("lastname", account.getLastName());
             session.setAttribute("email", account.getEmail());

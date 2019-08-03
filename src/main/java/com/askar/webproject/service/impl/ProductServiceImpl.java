@@ -16,15 +16,30 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public boolean findByCode(int code) throws ServiceException {
-        boolean find = false;
+    public double findPriceByCode(int code) throws ServiceException {
+        double price = 0;
         if (code > 0) {
             try {
-                find = productDao.findByCode(code);
+                price = productDao.findPriceByCode(code);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-            return find;
+        } else {
+            throw new ServiceException("Incorrect params");
+        }
+        return price;
+    }
+
+    @Override
+    public Product findByCode(int code) throws ServiceException {
+        Product product;
+        if (code > 0) {
+            try {
+                product = productDao.findByCode(code);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+            return product;
         } else {
             throw new ServiceException("Incorrect params");
         }

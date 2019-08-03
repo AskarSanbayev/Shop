@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ProductDao extends EntityDao {
 
-    boolean findByCode(int code) throws DaoException;
+    double findPriceByCode(int code) throws DaoException;
+
+    Product findByCode(int code) throws DaoException;
 
     void updatePrice(double price, int code) throws DaoException;
 

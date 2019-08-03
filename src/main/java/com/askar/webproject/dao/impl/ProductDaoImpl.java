@@ -19,25 +19,26 @@ public class ProductDaoImpl implements ProductDao {
     private static final String UPDATE_PRICE = "Update product set price = ? where code = ?";
     private static final String SELECT_ALL = "Select * from product";
     private static final String INSERT_PRODUCT = "INSERT INTO product(code,name,price) values(?,?,?)";
-    private static final String DELETE_PRODUCT = "delete from product where code = ?,name= ?,price =?";
+    private static final String DELETE_PRODUCT = "Delete from product where code = ?,name= ?,price =?";
+    private static final String SELECT_PRICE_BY_CODE = "SELECT price from product where code = ?";
 
     private static final String PRODUCT_CODE = "code";
     private static final String PRODUCT_NAME = "name";
     private static final String PRODUCT_PRICE = "price";
 
     @Override
-    public boolean findByCode(int code) throws DaoException {
-        boolean productFind = false;
+    public double findPriceByCode(int code) throws DaoException {
+        double price = 0;
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             connection = ConnectionPool.INSTANCE.takeConnection();
-            ps = connection.prepareStatement(SELECT_BY_CODE);
+            ps = connection.prepareStatement(SELECT_PRICE_BY_CODE);
             ps.setInt(1, code);
             rs = ps.executeQuery();
-            if (rs.first()) {
-                productFind = true;
+            while (rs.next()) {
+                price = rs.getDouble(PRODUCT_PRICE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +53,40 @@ public class ProductDaoImpl implements ProductDao {
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
         }
-        return productFind;
+        return price;
+    }
+
+    @Override
+    public Product findByCode(int code) throws DaoException {
+        Product product = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            connection = ConnectionPool.INSTANCE.takeConnection();
+            ps = connection.prepareStatement(SELECT_BY_CODE);
+            ps.setInt(1, code);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                product = new Product();
+                product.setCode(rs.getInt(PRODUCT_CODE));
+                product.setName(rs.getString(PRODUCT_NAME));
+                product.setPrice(rs.getDouble(PRODUCT_PRICE));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException("product findByCode exception");
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            ConnectionPool.INSTANCE.releaseConnection(connection);
+        }
+        return product;
     }
 
     @Override

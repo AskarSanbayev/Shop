@@ -6,7 +6,10 @@ import com.askar.webproject.model.entity.Product;
 import java.util.List;
 
 public interface ProductService extends EntityService {
-    boolean findByCode(int code) throws ServiceException;
+
+    double findPriceByCode(int code) throws ServiceException;
+
+    Product findByCode(int code) throws ServiceException;
 
     void updatePrice(double price, int code) throws ServiceException;
 

@@ -84,35 +84,33 @@
             <div id="pagination-container"></div>
         </div>
         <div class="col-md-5 pb-10">
-            <form id="form-signin" action="controller">
-                <input type="hidden" name="command" value="addtocart"/>
+            <form id="form-add" action="controller">
+                <input type="hidden" name="command" value="add_to_cart"/>
                 <div id="wrapper">
                     <h4 class="form-signin-heading">${addtocart}</h4>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="code" class="sr-only">${code}</label>
                             <input type="code" id="code" name="code"
-                                   pattern=""
+                                   pattern="^[0-9]*$"
                                    title="Please enter valid number." class="form-control mb-1" placeholder="${code}"
                                    required autofocus>
                         </div>
                         <div class="col-md-6">
                             <label for="amount" class="sr-only">${amount}</label>
                             <input type="amount" id="amount" name="amount" class="form-control mb-1"
-                                   pattern="" title="Please enter valid number."
+                                   pattern="^[0-9]*$" title="Please enter valid number."
                                    placeholder="${amount}" required>
                         </div>
                     </div>
-                    <div id="error_message">${error}</div>
+                    <div id="error_message">${errormessage}</div>
                     <button id="submitter" class="btn btn-lg btn-primary btn-block" type="submit">${add}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="footer mt-10">
-    <%@ include file="footer.jsp" %>
-</div>
+<%@ include file="footer.jsp" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>

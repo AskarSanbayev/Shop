@@ -9,7 +9,6 @@
 <%@ include file="header.jsp" %>
 <div container>
     <div class="error">
-        <h2 style="color: red; font-weight: bold">${error.getName()}</h2>
         <h3 style="color: red; font-weight: bold">${error}</h3>
     </div>
 </div>

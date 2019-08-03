@@ -18,7 +18,12 @@ public class CommandManager {
         TO_CART,
         LOGOUT,
         USER_MENU,
-        TO_ORDER_HISTORY
+        TO_ORDER_HISTORY,
+        ADD_TO_CART,
+        DELETE_ORDER,
+        SEND_ORDER,
+        REMOVE_FROM_CART,
+
     }
 
     private static CommandManager instance = new CommandManager();
@@ -37,7 +42,11 @@ public class CommandManager {
         commands.put(CommandContainer.TO_CART, new CartPageCommand());
         commands.put(CommandContainer.LOGOUT, new LogOutCommand());
         commands.put(CommandContainer.USER_MENU, new ToUserMenuCommand());
-        commands.put(CommandContainer.USER_MENU, new ToUserMenuCommand());
+        commands.put(CommandContainer.TO_ORDER_HISTORY, new ToOrderHistoryPageCommand());
+        commands.put(CommandContainer.ADD_TO_CART, new AddToCartCommand());
+        commands.put(CommandContainer.DELETE_ORDER, new DeleteOrderCommand());
+        commands.put(CommandContainer.SEND_ORDER, new SendOrderCommand());
+        commands.put(CommandContainer.REMOVE_FROM_CART, new RemoveFromCartCommand());
 
     }
 
@@ -47,6 +56,9 @@ public class CommandManager {
     }
 
     public Command getCommand(String commandName) {
+        if (commandName.isEmpty()) {
+            commandName = "EMPTY_COMMAND";
+        }
         CommandContainer command = CommandContainer.valueOf(commandName.toUpperCase());
         return commands.get(command);
     }

@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class Account extends Entity {
     private static final long serialVersionUID = 1L;
+
+    private int accountId;
     private String firstName;
     private String lastName;
     private String password;
@@ -32,6 +34,13 @@ public class Account extends Entity {
         return firstName;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 
     public String getLastName() {
         return lastName;
@@ -58,6 +67,7 @@ public class Account extends Entity {
     public String getGender() {
         return gender;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -91,9 +101,9 @@ public class Account extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Account account = (Account) o;
-        return Double.compare(account.accountBalance, accountBalance) == 0 &&
+        return accountId == account.accountId &&
+                Double.compare(account.accountBalance, accountBalance) == 0 &&
                 Objects.equals(firstName, account.firstName) &&
                 Objects.equals(lastName, account.lastName) &&
                 Objects.equals(password, account.password) &&
@@ -109,5 +119,19 @@ public class Account extends Entity {
         result = prime * result
                 + email.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", email='" + email + '\'' +
+                ", date=" + date +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

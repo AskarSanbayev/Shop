@@ -67,6 +67,7 @@ public class AccountDaoImpl implements AccountDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 account = new Account();
+                account.setAccountId(rs.getInt("id"));
                 account.setFirstName(rs.getString("first_name"));
                 account.setLastName(rs.getString("last_name"));
                 account.setEmail(rs.getString("email"));
