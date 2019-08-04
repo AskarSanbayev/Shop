@@ -1,10 +1,14 @@
 package com.askar.webproject.dao.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class DatabaseManager {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     static final String JDBC_MYSQL_DRIVER = "db.driver";
     static final String DATABASE_URL = "db.url";
     static final String DATABASE_USER = "db.user";
@@ -24,7 +28,7 @@ public class DatabaseManager {
             try {
                 result = bundle.getString(key);
             } catch (MissingResourceException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
         return result;

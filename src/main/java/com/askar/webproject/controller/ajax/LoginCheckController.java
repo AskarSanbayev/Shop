@@ -4,6 +4,8 @@ import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Account;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import java.io.PrintWriter;
 
 @WebServlet("/login")
 public class LoginCheckController extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
@@ -36,7 +41,7 @@ public class LoginCheckController extends HttpServlet {
                 out.print("<span style='color:red;'>Login or password is wrong</span>");
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 }

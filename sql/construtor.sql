@@ -1,3 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS `registers` DEFAULT CHARACTER SET utf8 ;
+USE `registers`
+
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     price double,

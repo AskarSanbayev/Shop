@@ -9,6 +9,8 @@ import com.askar.webproject.service.OrderService;
 import com.askar.webproject.service.ProductService;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.impl.OrderServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 public class RemoveFromCartCommand implements Command {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String PRODUCT_CODE = "code";
     private static final String SESSION_ORDER_PRICE = "price";
     private static final String SESSION_ORDER_ID = "order_id";
@@ -50,7 +53,7 @@ public class RemoveFromCartCommand implements Command {
                 request.setAttribute("error", error);
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         return PageContainer.CART_PAGE;

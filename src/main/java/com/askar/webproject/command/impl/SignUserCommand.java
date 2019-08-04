@@ -8,12 +8,16 @@ import com.askar.webproject.model.entity.Product;
 import com.askar.webproject.service.ProductService;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class SignUserCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
 
@@ -46,6 +50,7 @@ public class SignUserCommand implements Command {
             session.setAttribute("productlist", productList);
             page = PageContainer.USER_MENU_PAGE;
         } catch (ServiceException e) {
+            LOGGER.error(e);
             request.setAttribute("error", e);
             page = PageContainer.ERROR_PAGE;
         }

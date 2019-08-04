@@ -51,7 +51,7 @@
                            required/>
                     <div id="email_error"></div>
                 </div>
-                <input type="password" name="password" value="" class="form-control input-lg mb-1"
+                <input type="password" name="password" class="form-control input-lg mb-1"
                        placeholder="${password}" required/>
                 <label>${birthDate}</label>
                 <div class="row">

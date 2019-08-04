@@ -84,7 +84,7 @@
             <div id="pagination-container"></div>
         </div>
         <div class="col-md-5 pb-10">
-            <form id="form-add" action="controller">
+            <form id="form-add" action="controller" method="post">
                 <input type="hidden" name="command" value="add_to_cart"/>
                 <div id="wrapper">
                     <h4 class="form-signin-heading">${addtocart}</h4>

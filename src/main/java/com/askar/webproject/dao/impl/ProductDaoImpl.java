@@ -5,6 +5,8 @@ import com.askar.webproject.dao.connection.ConnectionPool;
 import com.askar.webproject.exception.DaoException;
 import com.askar.webproject.model.entity.Entity;
 import com.askar.webproject.model.entity.Product;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String SELECT_BY_CODE = "Select * from product where code = ?";
     private static final String UPDATE_PRICE = "Update product set price = ? where code = ?";
     private static final String SELECT_ALL = "Select * from product";
@@ -41,14 +44,14 @@ public class ProductDaoImpl implements ProductDao {
                 price = rs.getDouble(PRODUCT_PRICE);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException("product findByCode exception");
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -74,14 +77,14 @@ public class ProductDaoImpl implements ProductDao {
                 product.setPrice(rs.getDouble(PRODUCT_PRICE));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException("product findByCode exception");
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -100,14 +103,14 @@ public class ProductDaoImpl implements ProductDao {
             ps.setInt(2, code);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -133,14 +136,14 @@ public class ProductDaoImpl implements ProductDao {
                 products.add(product);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -163,14 +166,14 @@ public class ProductDaoImpl implements ProductDao {
                 ps.setDouble(3, product.getPrice());
                 ps.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
                 throw new DaoException();
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 }
                 ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -197,14 +200,14 @@ public class ProductDaoImpl implements ProductDao {
                 ps.setDouble(3, product.getPrice());
                 ps.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
                 throw new DaoException();
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 }
                 ConnectionPool.INSTANCE.releaseConnection(connection);

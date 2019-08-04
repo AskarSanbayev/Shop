@@ -6,10 +6,15 @@ import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Account;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class RegisterUserCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String FIRST_NAME = "firstname";
     private static final String LAST_NAME = "lastname";
     private static final String EMAIL = "email";
@@ -23,6 +28,7 @@ public class RegisterUserCommand implements Command {
     public String execute(HttpServletRequest request) {
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
+        HttpSession session = request.getSession();
 
         Account account = null;
         String page = null;
@@ -37,11 +43,11 @@ public class RegisterUserCommand implements Command {
         account = new Account(name, lastName, password, 0, email, year, month, day, gender);
         try {
             userService.create(account);
-            request.setAttribute("user", account);
+            session.setAttribute("user", account);
             page = PageContainer.RESULT_REGISTER_PAGE;
         } catch (ServiceException e) {
-//            LOGGER.error("RegisterUserCommand error.", e);
-            request.setAttribute("error", e);
+            LOGGER.error(e);
+            session.setAttribute("error", e);
             page = PageContainer.ERROR_PAGE;
         }
         return page;

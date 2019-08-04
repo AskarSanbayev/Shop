@@ -9,12 +9,16 @@ import com.askar.webproject.service.OrderProductService;
 import com.askar.webproject.service.OrderService;
 import com.askar.webproject.service.ProductService;
 import com.askar.webproject.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class AddToCartCommand implements Command {
 
+
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String PRODUCT_CODE = "code";
     private static final String PRODUCT_AMOUNT = "amount";
     private static final String SESSION_ORDER = "order";
@@ -26,7 +30,6 @@ public class AddToCartCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         ProductService productService = serviceFactory.getProductService();
         OrderService orderService = serviceFactory.getOrderService();
@@ -37,8 +40,8 @@ public class AddToCartCommand implements Command {
         int amount = Integer.parseInt(request.getParameter(PRODUCT_AMOUNT));
         int accountId = (int) session.getAttribute(ACCOUNT_ID);
         Order order = (Order) session.getAttribute(SESSION_ORDER);
-        double price = 0;
-        Product product = null;
+        double price;
+        Product product;
 
         try {
             if (productService.findByCode(code) != null) {
@@ -78,8 +81,9 @@ public class AddToCartCommand implements Command {
                 request.setAttribute("errormessage", errormessage);
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
+
         return PageContainer.USER_MENU_PAGE;
     }
 

@@ -65,7 +65,7 @@
         ${totalprice}:${sessionScope.get("price")}
 
     <div class="row">
-        <form id="form-add" action="controller">
+        <form id="form-add" action="controller" method="post">
             <input type="hidden" name="command" value="remove_from_cart"/>
             <div class="col-md-6">
                 <label for="code" class="sr-only">${code}</label>

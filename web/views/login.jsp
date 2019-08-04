@@ -19,12 +19,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5">
-            <form id="form-signin" action="controller">
+            <form id="form-signin" action="controller" method="get">
                 <input type="hidden" name="command" value="login"/>
                 <div id="wrapper">
                     <h2 class="form-signin-heading">${signIn}</h2>
                     <label for="inputEmail" class="sr-only">${email}</label>
                     <input type="email" id="inputEmail" name="email"
+                           value=""
                            pattern="^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
                            title="Please enter valid email form." class="form-control mb-1" placeholder="${email}"
                            required autofocus>

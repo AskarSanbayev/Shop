@@ -8,6 +8,8 @@ import com.askar.webproject.model.entity.Entity;
 import com.askar.webproject.model.entity.Order;
 import com.askar.webproject.model.entity.Product;
 import com.askar.webproject.service.ProductService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String INSERT_ORDER = "Insert into orders(order_id,price,account_id) values(?,?,?)";
     private static final String DELETE_ORDER = "Delete From orders where orderId = ?";
     private static final String UPDATE_PRICE = "UPDATE orders SET price=? WHERE order_id=?";
@@ -26,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void create(Entity entity) throws DaoException {
-        Order order = null;
+        Order order;
         if (entity instanceof Order) {
             order = (Order) entity;
             Connection connection = null;
@@ -40,14 +43,14 @@ public class OrderDaoImpl implements OrderDao {
                 ps.setInt(3, order.getAccountId());
                 ps.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
                 throw new DaoException();
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 }
                 ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -75,14 +78,14 @@ public class OrderDaoImpl implements OrderDao {
             ps.setInt(1, orderId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -95,9 +98,9 @@ public class OrderDaoImpl implements OrderDao {
         Map<Product, Integer> productAmountMap = null;
         Connection connection = null;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        Order order = null;
-        Product product = null;
+        ResultSet rs;
+        Order order ;
+        Product product;
         try {
             connection = ConnectionPool.INSTANCE.takeConnection();
             ps = connection.prepareStatement(SELECT_ALL_ORDERS);
@@ -119,14 +122,14 @@ public class OrderDaoImpl implements OrderDao {
                 }
             }
         } catch (SQLException | ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -145,14 +148,14 @@ public class OrderDaoImpl implements OrderDao {
             ps.setInt(2, orderId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);

@@ -7,7 +7,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<div container>
+<div class="container">
     <div class="error">
         <h3 style="color: red; font-weight: bold">${error}</h3>
     </div>

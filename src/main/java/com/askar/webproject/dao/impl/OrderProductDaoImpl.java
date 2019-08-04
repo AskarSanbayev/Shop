@@ -4,6 +4,8 @@ import com.askar.webproject.dao.OrderProductDao;
 import com.askar.webproject.dao.connection.ConnectionPool;
 import com.askar.webproject.exception.DaoException;
 import com.askar.webproject.model.entity.Entity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +14,7 @@ import java.sql.SQLException;
 
 public class OrderProductDaoImpl implements OrderProductDao {
 
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String INSERT_PRODUCT = "INSERT INTO order_product (order_id,code,amount) values(?,?,?)";
     private static final String DELETE_ORDER = "DELETE FROM order_product WHERE order_id = ? and code = ?";
     private static final String DELETE_ORDER_BY_ID = "DELETE FROM order_product WHERE order_id = ?";
@@ -46,14 +48,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
             ps.setInt(3, amount);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -71,14 +73,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
             ps.setInt(2, code);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -95,14 +97,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
             ps.setInt(1, orderId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -125,14 +127,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
                 find = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -154,14 +156,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
             ps.setInt(5, code);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);

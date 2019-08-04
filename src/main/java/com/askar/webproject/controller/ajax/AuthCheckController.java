@@ -1,9 +1,10 @@
 package com.askar.webproject.controller.ajax;
 
-import com.askar.webproject.dao.impl.AccountDaoImpl;
 import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.service.ServiceFactory;
 import com.askar.webproject.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import java.io.PrintWriter;
 
 @WebServlet("/authServlet")
 public class AuthCheckController extends HttpServlet {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +39,7 @@ public class AuthCheckController extends HttpServlet {
                 out.print("<span style='color:green;'>Login available</span>");
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 }

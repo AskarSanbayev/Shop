@@ -15,6 +15,7 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
 
     private static final String COMMAND = "command";
+    private static final String PARAM_PAGE_PATH = "pagePath";
 
     @Override
     public void init() throws ServletException {
@@ -23,23 +24,39 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+        processGetRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+        processPostRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String commandName = req.getParameter(COMMAND);
+    private void processGetRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String page;
+        if (req.getParameterMap().containsKey(PARAM_PAGE_PATH)) {
+            page = req.getParameter(PARAM_PAGE_PATH);
+        } else {
+            Command command = CommandManager.getInstance().getCommand(req.getParameter(COMMAND));
+            page = command.execute(req);
+        }
+        if (page != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            dispatcher.forward(req, resp);
+        } else{
+            resp.sendRedirect(req.getContextPath() + page);
+        }
+    }
 
-        Command command = CommandManager.getInstance().getCommand(commandName);
-
-        String page = command.execute(req);
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
-
-        dispatcher.forward(req, resp);
+    private void processPostRequest(HttpServletRequest req, HttpServletResponse resp)throws IOException {
+        String page;
+        Command command = CommandManager.getInstance().getCommand(req.getParameter(COMMAND));
+        page = command.execute(req);
+        if (page != null) {
+            resp.sendRedirect("controller?pagePath=" + page);
+        } else{
+            resp.sendRedirect(req.getContextPath() + page);
+        }
     }
 
     @Override

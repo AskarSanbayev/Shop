@@ -1,5 +1,8 @@
 package com.askar.webproject.dao.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
 public enum ConnectionPool {
     INSTANCE;
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private BlockingQueue<ProxyConnection> availableConnections;
     private List<ProxyConnection> givenConnections;
     private final String driverName = DatabaseManager.getValue(DatabaseManager.JDBC_MYSQL_DRIVER);
@@ -35,14 +39,14 @@ public enum ConnectionPool {
             availableConnections = new ArrayBlockingQueue<>(poolSize);
             givenConnections = new ArrayList<>(poolSize);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.fatal(e);
         }
         for (int i = 0; i < poolSize; i++) {
             Connection connection = null;
             try {
                 connection = DriverManager.getConnection(url, user, password);
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.fatal(e);
             }
             ProxyConnection proxyConnection = new ProxyConnection(connection);
             availableConnections.add(proxyConnection);
@@ -55,7 +59,7 @@ public enum ConnectionPool {
             connection = availableConnections.take();
             givenConnections.add(connection);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         return connection;
     }
@@ -72,7 +76,7 @@ public enum ConnectionPool {
             try {
                 availableConnections.take().realClose();
             } catch (SQLException | InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
         deregisterDrivers();
@@ -83,7 +87,7 @@ public enum ConnectionPool {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         });
     }

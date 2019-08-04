@@ -5,6 +5,8 @@ import com.askar.webproject.dao.connection.ConnectionPool;
 import com.askar.webproject.exception.DaoException;
 import com.askar.webproject.model.entity.Account;
 import com.askar.webproject.model.entity.Entity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 
 public class AccountDaoImpl implements AccountDao {
 
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String INSERT_ACCOUNT = "INSERT INTO accounts (first_name,last_name,email,balance,password,gender,birthday ) VALUES (?,?,?,?,?,?,?);";
     private static final String SELECT_ACCOUNT_BY_EMAIL_PASSWORD = "Select * From accounts where email = ? and password = ?";
     private static final String SELECT_ACCOUNT_BY_EMAIL = "Select email From accounts where email = ?";
@@ -37,14 +39,14 @@ public class AccountDaoImpl implements AccountDao {
                 accountFind = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException("account findByEmail exception");
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -77,14 +79,14 @@ public class AccountDaoImpl implements AccountDao {
                 account.setDate(LocalDate.parse(rs.getString("Birthday")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException("account find exception");
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -103,14 +105,14 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(2, email);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -128,14 +130,14 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(2, email);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -152,14 +154,14 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             throw new DaoException();
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
             ConnectionPool.INSTANCE.releaseConnection(connection);
@@ -185,14 +187,14 @@ public class AccountDaoImpl implements AccountDao {
                 ps.setString(7, String.valueOf(account.getDate()));
                 ps.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
                 throw new DaoException();
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 }
                 ConnectionPool.INSTANCE.releaseConnection(connection);
