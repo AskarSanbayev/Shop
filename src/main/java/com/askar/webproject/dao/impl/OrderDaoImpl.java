@@ -1,13 +1,12 @@
 package com.askar.webproject.dao.impl;
 
 import com.askar.webproject.dao.OrderDao;
+import com.askar.webproject.dao.ProductDao;
 import com.askar.webproject.dao.connection.ConnectionPool;
 import com.askar.webproject.exception.DaoException;
-import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Entity;
 import com.askar.webproject.model.entity.Order;
 import com.askar.webproject.model.entity.Product;
-import com.askar.webproject.service.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,13 +92,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Map<Order, Map<Product, Integer>> findAll(int accountId, ProductService productService) throws DaoException {
+    public Map<Order, Map<Product, Integer>> findAll(int accountId, ProductDao productDao) throws DaoException {
         Map<Order, Map<Product, Integer>> orderList = new HashMap<>();
         Map<Product, Integer> productAmountMap = null;
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs;
-        Order order ;
+        Order order;
         Product product;
         try {
             connection = ConnectionPool.INSTANCE.takeConnection();
@@ -108,7 +107,7 @@ public class OrderDaoImpl implements OrderDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order();
-                product = productService.findByCode(rs.getInt("code"));
+                product = productDao.findByCode(rs.getInt("code"));
                 order.setOrderId(rs.getInt("order_id"));
                 order.setPrice(rs.getDouble("price"));
                 order.setAccountId(accountId);
@@ -121,7 +120,7 @@ public class OrderDaoImpl implements OrderDao {
                     orderList.put(order, productAmountMap);
                 }
             }
-        } catch (SQLException | ServiceException e) {
+        } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException();
         } finally {

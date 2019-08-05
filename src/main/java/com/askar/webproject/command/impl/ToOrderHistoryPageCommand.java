@@ -23,7 +23,6 @@ public class ToOrderHistoryPageCommand implements Command {
     public String execute(HttpServletRequest request) {
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        ProductService productService = serviceFactory.getProductService();
         OrderService orderService = serviceFactory.getOrderService();
 
         HttpSession session = request.getSession();
@@ -31,7 +30,7 @@ public class ToOrderHistoryPageCommand implements Command {
         Map<Order, Map<Product, Integer>> orderList = null;
         int accountId = (int) session.getAttribute("accountId");
         try {
-            orderList = orderService.findAll(accountId, productService);
+            orderList = orderService.findAll(accountId);
             session.setAttribute("orderhistory", orderList);
         } catch (ServiceException e) {
             LOGGER.error(e);

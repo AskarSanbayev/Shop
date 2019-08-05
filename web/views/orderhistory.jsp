@@ -70,6 +70,9 @@
                     ${amount}: <c:out value="${inner.value}"/> <br/>
                 </c:forEach>
             </c:if>
+            <c:if test="${sessionScope.orderhistory.size() == 1 &&  sessionScope.order_id == entry.key.getOrderId()}">
+                ${history_empty}
+            </c:if>
         </c:forEach>
     </c:if>
     <c:if test="${sessionScope.orderhistory.isEmpty() || sessionScope.orderhistory == null}">

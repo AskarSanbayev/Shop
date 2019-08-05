@@ -36,7 +36,7 @@ public class SendOrderCommand implements Command {
 
         if (price > accountBalance) {
             String error = "You dont have enough money in your account";
-            request.setAttribute("errormoney", error);
+            session.setAttribute("errormoney", error);
         } else {
             try {
                 double balance = accountBalance - price;

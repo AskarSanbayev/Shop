@@ -86,6 +86,7 @@
         <div class="col-md-3"><a href="controller?command=delete_order" class="btn btn-lg btn-primary btn-block">
                 ${delete_order}
         </a></div>
+        <div id="error_money">${errormoney}</div>
         <div class="col-md-3"><a href="controller?command=send_order"
                                  class="btn btn-lg btn-primary btn-block signup-btn">
                 ${send_order}

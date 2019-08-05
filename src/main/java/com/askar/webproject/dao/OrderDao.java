@@ -12,5 +12,5 @@ public interface OrderDao extends EntityDao {
 
     void delete(int orderId) throws DaoException;
 
-    Map<Order, Map<Product, Integer>> findAll(int accountId, ProductService productService) throws DaoException;
+    Map<Order, Map<Product, Integer>> findAll(int accountId, ProductDao productDao) throws DaoException;
 }

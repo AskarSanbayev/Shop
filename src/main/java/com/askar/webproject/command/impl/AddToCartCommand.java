@@ -62,7 +62,7 @@ public class AddToCartCommand implements Command {
                 } else {
                     price = (double) session.getAttribute(SESSION_ORDER_PRICE);
                     product = productService.findByCode(code);
-                    price = amount * productService.findPriceByCode(code) + price;
+                    price = (double) amount * productService.findPriceByCode(code) + price;
                     order.addProduct(product, amount);
                     order.setPrice(price);
                     orderService.updatePrice(price, order.getOrderId());

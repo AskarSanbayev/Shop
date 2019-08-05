@@ -12,5 +12,5 @@ public interface OrderService extends EntityService {
 
     void delete(int orderId) throws ServiceException;
 
-    Map<Order, Map<Product, Integer>> findAll(int accountId, ProductService productService) throws ServiceException;
+    Map<Order, Map<Product, Integer>> findAll(int accountId) throws ServiceException;
 }

@@ -50,7 +50,7 @@ public class RemoveFromCartCommand implements Command {
                 session.setAttribute(SESSION_PRODUCT_MAPPER, productAmountMap);
             } else {
                 String error = "wrong product code";
-                request.setAttribute("error", error);
+                session.setAttribute("error", error);
             }
         } catch (ServiceException e) {
             LOGGER.error(e);

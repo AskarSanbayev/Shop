@@ -2,15 +2,15 @@ package com.askar.webproject.service.impl;
 
 import com.askar.webproject.dao.DAOFactory;
 import com.askar.webproject.dao.OrderDao;
+import com.askar.webproject.dao.ProductDao;
+import com.askar.webproject.dao.impl.ProductDaoImpl;
 import com.askar.webproject.exception.DaoException;
 import com.askar.webproject.exception.ServiceException;
 import com.askar.webproject.model.entity.Entity;
 import com.askar.webproject.model.entity.Order;
 import com.askar.webproject.model.entity.Product;
 import com.askar.webproject.service.OrderService;
-import com.askar.webproject.service.ProductService;
 
-import java.util.List;
 import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
@@ -58,10 +58,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Map<Order, Map<Product, Integer>> findAll(int accountId, ProductService productService) throws ServiceException {
+    public Map<Order, Map<Product, Integer>> findAll(int accountId) throws ServiceException {
+        ProductDao productDao = new ProductDaoImpl();
         Map<Order, Map<Product, Integer>> orderList;
         try {
-            orderList = orderDao.findAll(accountId, productService);
+            orderList = orderDao.findAll(accountId, productDao);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
