@@ -78,7 +78,7 @@ public class AddToCartCommand implements Command {
                 }
             } else {
                 String errormessage = "Wrong product code";
-                request.setAttribute("errormessage", errormessage);
+                session.setAttribute("errormessage", errormessage);
             }
         } catch (ServiceException e) {
             LOGGER.error(e);

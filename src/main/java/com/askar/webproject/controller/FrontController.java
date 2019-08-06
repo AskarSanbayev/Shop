@@ -20,21 +20,21 @@ public class FrontController extends HttpServlet {
     private static final String PARAM_PAGE_PATH = "pagePath";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processGetRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processPostRequest(req, resp);
+    }
+
+    private void processGetRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page;
         if (req.getParameterMap().containsKey(PARAM_PAGE_PATH)) {
             page = req.getParameter(PARAM_PAGE_PATH);
@@ -47,6 +47,18 @@ public class FrontController extends HttpServlet {
             dispatcher.forward(req, resp);
         } else {
             resp.sendRedirect(req.getContextPath());
+        }
+    }
+
+    private void processPostRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String page;
+        Command command = CommandManager.getInstance().getCommand(req.getParameter(COMMAND));
+        page = command.execute(req);
+        if (page != null) {
+            resp.sendRedirect("controller?pagePath=" + page);
+        } else {
+            resp.sendRedirect(req.getContextPath());
+
         }
     }
 

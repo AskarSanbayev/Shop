@@ -32,11 +32,6 @@
                     <label for="inputPassword" class="sr-only">${password}</label>
                     <input type="password" id="inputPassword" name="password" class="form-control mb-1"
                            placeholder="${password}" required>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me"> ${remember}
-                        </label>
-                    </div>
                     <div id="error_message"></div>
                     <button id="submitter" class="btn btn-lg btn-primary btn-block" type="submit">${signIn}</button>
                 </div>
