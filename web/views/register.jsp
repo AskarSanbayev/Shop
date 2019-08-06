@@ -31,7 +31,7 @@
                 <legend>${signUp}</legend>
                 <div class="row">
                     <div class="col-xs-6 col-md-6 mb-1" id="id_div">
-                        <input type="text" name="firstname" pattern="^[a-zA-Z_\-]+$"
+                        <input type="text" name="firstname" pattern="C"
                                title="Please enter only alphabetic characters." value=""
                                class="form-control input-lg"
                                placeholder="${firstName}" required/>

@@ -92,15 +92,12 @@
                 ${send_order}
         </a></div>
         <div>${moneyerror}</div>
-
     </div>
 </div>
 </c:if>
 <c:if test="${sessionScope.product_map.size() == 0 || sessionScope.product_map == null}">
     ${cartempty}
 </c:if>
-
-</div>
 
 <%@ include file="footer.jsp" %>
 </body>
