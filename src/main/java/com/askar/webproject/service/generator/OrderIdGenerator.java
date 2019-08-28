@@ -1,13 +1,15 @@
 package com.askar.webproject.service.generator;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class OrderIdGenerator {
-    private static int orderId = 0;
+    private static AtomicInteger orderId = new AtomicInteger(0);
 
     public static int generateOrderId() {
-        return orderId++;
+        return orderId.incrementAndGet();
     }
 
     public static int getOrderId() {
-        return orderId;
+        return orderId.get();
     }
 }
